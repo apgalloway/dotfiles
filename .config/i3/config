@@ -27,7 +27,7 @@ set $mod Mod4
 exec --no-startup-id nm-applet
 
 exec --no-startup-id nitrogen --restore
-exec --no-startup-id picom -b
+exec_always --no-startup-id $HOME/.config/picom/launch.sh
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id xset -b
 exec --no-startup-id xscreensaver -nosplash
