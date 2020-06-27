@@ -1,9 +1,11 @@
 import requests
+with open('weather_api', 'r') as file:
+	passwd = file.read().replace('\n', '')
 
 city = "4297983"
-api_key = "11bc9641b84fcb54bd4f64e66924816e"
 units = "Imperial"
 unit_key = "F"
+api_key = str(passwd)
 
 req = requests.get("http://api.openweathermap.org/data/2.5/weather?id={}&appid={}&units={}".format(city, api_key, units))
 
