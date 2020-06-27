@@ -1,5 +1,5 @@
 import requests
-with open('weather_api', 'r') as file:
+with open('weather_api.txt', 'r') as file:
 	passwd = file.read().replace('\n', '')
 
 city = "4297983"
