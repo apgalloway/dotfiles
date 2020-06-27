@@ -1,0 +1,200 @@
+[colors]
+background = #000000
+foreground = #eeeeec
+alert = #ef2929
+focused-fg = #eeeeec
+focused-bg = #729fcf
+unfocused-wm = #2e3436
+focused-ws = #555753
+
+[ws-spacing]
+padding = 1
+margin = 0
+
+[bar/top]
+monitor = DVI-I-1
+fixed-center = true
+bottom = false
+#separator = %{F#5294e2}|%{F-}
+
+width = 100%
+height = 25
+background = ${colors.background}
+foreground = ${colors.foreground}
+border-size = 4
+border-color = ${colors.background}
+padding-left = 0
+padding-right = 1
+
+line-size = 2
+
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = "Ubuntu Mono:style=Regular:size=11"
+font-1 = "Material Icons:style=Regular:size=11;2"
+font-2 = "Font Awesome 5 Free Solid:style=Solid:size=10"
+font-3 = "Noto Color Emoji:style=Regular:scale=10;2"
+
+modules-left = workspaces xwindow
+modules-center =
+modules-right = packages weather memory network alsa date
+
+locale = en_US.UTF-8
+
+tray-position = right
+tray-padding = 3
+tray-background = ${colors.background}
+tray-offset-x = 0
+tray-offset-y = 0
+tray-scale = 1.0
+
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+cursor-click = pointer
+cursor-scroll = default
+
+enable-ipc = true
+
+[module/workspaces]
+type = internal/i3
+pin-workspaces = false
+index-sort = true
+wrapping-scroll = false
+reverse-scroll = false
+
+ws-icon-0 = 1;1
+ws-icon-1 = 2;2
+ws-icon-2 = 3;3
+ws-icon-3 = 4;4
+ws-icon-4 = 5;5
+ws-icon-5 = 6;6
+ws-icon-6 = 7;7
+ws-icon-7 = 8;8
+ws-icon-8 = 9;gimp
+ws-icon-9 = 10;
+#
+
+label-focused = %icon%
+label-focused-padding = ${ws-spacing.padding}
+label-focused-margin = ${ws-spacing.margin}
+label-focused-foreground = ${colors.focused-fg}
+label-focused-background = ${colors.focused-ws}
+label-focused-underline = ${colors.focused-bg}
+
+label-unfocused = %icon%
+label-unfocused-padding = ${ws-spacing.padding}
+label-unfocused-margin = ${ws-spacing.margin}
+
+label-visible = %icon%
+label-visible-underline = ${colors.focused-fg}
+label-visible-padding = ${ws-spacing.padding}
+label-visible-margin = ${ws-spacing.margin}
+
+label-urgent = %icon%
+label-urgent-padding = ${ws-spacing.padding}
+label-urgent-margin = ${ws-spacing.margin}
+label-urgent-foreground = ${colors.focused-fg}
+label-urgent-background = ${colors.alert}
+
+label-mode = %mode%
+label-mode-padding = ${ws-spacing.padding}
+label-mode-margin = ${ws-spacing.margin}
+label-mode-foreground = ${colors.focused-fg}
+label-mode-background = ${colors.alert}
+
+label-separator = 
+label-separator-padding = 2
+label-separator-foreground = ${colors.background}
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:50:...%
+
+[module/alsa]
+type = internal/alsa
+master-soundcard = default
+master-mixer = Master 
+interval = 5
+format-volume = <label-volume>
+format-muted = <label-muted>
+label-volume = %percentage:3%%
+label-muted = mute
+click-left = amixer -D pulse sset Master toggle
+scroll-up = amixer -D pulse sset Master 5%+ 
+scroll-down = amixer -D pulse sset Master 5%-
+format-volume-underline = ${colors.focused-bg}
+format-muted-underline = ${colors.alert}
+
+[module/date]
+type = internal/date
+interval = 1.0
+; See "https://en.cppreference.com/w/cpp/io/manip/put_time" for details on how to format the date string
+; NOTE: if you want to use syntax tags here you need to use %%{...}
+date = %a %d %b %Y
+time = %I:%M %p
+format = <label>
+label =  %date% %time%
+#label-underline = ${colors.focused-bg}
+
+[module/network]
+type = internal/network
+interface = eno1
+interval = 5
+label-connected =  %local_ip%
+label-connected-underline = #8ae234
+#label-connected-foreground = #8ae234
+label-disconnected =  disconnected
+label-disconnected-underline = ${colors.alert}
+
+[module/filesystem]
+type = internal/fs 
+mount-0 = /
+mount-1 = /home
+interval = 60
+fixed-values = false
+spacing = 2
+format-mounted = <label-mounted>
+label-mounted = %mountpoint%: %percentage_used%% used
+
+[module/memory]
+type = internal/memory
+interval = 5
+format = <label> <bar-used>
+label =  %percentage_used%%
+bar-used-indicator = 
+bar-used-width = 6
+bar-used-font = 2
+bar-used-foreground-0 = #8ae234
+bar-used-foreground-1 = #4e9a06
+bar-used-foreground-2 = #c4a000
+bar-used-foreground-3 = #cc0000
+bar-used-foreground-4 = #ef2929
+bar-used-fill = 
+bar-used-empty = 
+bar-used-empty-foreground = #444444
+format-underline = ${colors.focused-bg}
+
+[module/weather]
+type = custom/script
+interval = 600
+format = <label>
+format-underline = ${colors.focused-bg}
+exec = python3 -u ~/weather.py 
+tail = true
+
+[module/demo]
+type = custom/ipc
+hook-0 = echo foobar
+hook-1 = date +%s
+hook-2 = whoami
+initial = 1
+click-left = polybar-msg -p %pid% hook demo 1
+click-right = polybar-msg -p %pid% hook demo 2
+double-click-left = polybar-msg -p %pid% hook demo 3
+
+[module/packages]
+type = custom/script
+exec = pacman -Qu | wc -l
+interval = 3600
+label =  %output% updates
