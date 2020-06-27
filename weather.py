@@ -14,29 +14,29 @@ if req.status_code == 200:
 	category = req.json()["weather"][0]["main"].capitalize()
 	dayornight = req.json()["weather"][0]["icon"].capitalize()
 	temp = int(float(req.json()["main"]["temp"]))
+
+	if category == "Thunderstorm":
+		icon = ""
+	elif category == "Drizzle":
+		icon = ""
+	elif category == "Rain":
+		icon = ""
+	elif category == "Snow":
+		icon = ""
+	elif category == "Clear":
+		if dayornight[-1] == "d":
+			icon = ""
+		else:
+			icon = ""
+	elif category == "Clouds":
+		icon = ""
+	else: 
+		icon = ""
+	 
+	print("{} {}°F".format(icon, temp))
+
 else: 
  	print("Err:weath")
-
-if category == "Thunderstorm":
-	icon = ""
-elif category == "Drizzle":
-	icon = ""
-elif category == "Rain":
-	icon = ""
-elif category == "Snow":
-	icon = ""
-elif category == "Clear":
-	if dayornight[-1] == "d":
-		icon = ""
-	else:
-		icon = ""
-elif category == "Clouds":
-	icon = ""
-else: 
-	icon = ""
-
- 
-print("{} {}°F".format(icon, temp))
 
 # print("     ") 
 
