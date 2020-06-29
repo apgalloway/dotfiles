@@ -193,7 +193,7 @@ bindsym $mod+Shift+Pause exec --no-startup-id xscreensaver-command -activate &
 # bindsym XF86AudioNext exec playerctl next
 # bindsym XF86AudioPrev exec playerctl previous
 
-#bindsym $mod+Shift+l exec i3lock -c 000000
+bindsym $mod+Shift+l exec i3lock -c 000000
 bindsym --whole-window $mod+button2 kill
 
 # set inner/outer gaps

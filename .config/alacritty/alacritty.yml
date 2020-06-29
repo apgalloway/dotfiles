@@ -67,25 +67,25 @@ window:
 font:
   normal:
     # Font family
-    family: Ubuntu Mono
+    family: Liberation Mono
     #family: Perfect DOS VGA 437
     style: Regular 
 
   # Bold font face
   bold:
     # Font family
-    family: Ubuntu Mono
+    family: Liberation Mono
     #family: Perfect DOS VGA 437
     style: Bold
 
   # Italic font face
   italic:
     # Font family
-    family: Ubunto Mono
+    family: Liberation Mono
     style: Italic
 
   # Point size
-  size: 11
+  size: 9
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
