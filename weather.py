@@ -16,30 +16,34 @@ if req.status_code == 200:
 	temp = int(float(req.json()["main"]["temp"]))
 
 	if category == "Thunderstorm":
-		icon = ""
+		icon = ""
 	elif category == "Drizzle":
-		icon = ""
+		icon = ""
 	elif category == "Rain":
-		icon = ""
+		icon = ""
 	elif category == "Snow":
-		icon = ""
+		icon = ""
 	elif category == "Clear":
 		if dayornight[-1] == "d":
-			icon = ""
+			icon = ""
 		else:
-			icon = ""
+			icon = ""
 	elif category == "Clouds":
-		icon = ""
+		icon = ""
 	else: 
-		icon = ""
+		icon = ""
 	 
 	print("{} {}°F".format(icon, temp))
 
 else: 
- 	print("Err:weath")
+ 	print(" Err:weath")
 
-# print("     ") 
+# font awesome
+#              
 
 # material
-# 
-#
+#              
+
+# weather icons
+#                     
+
