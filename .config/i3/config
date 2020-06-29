@@ -38,7 +38,7 @@ floating_modifier $mod
 # default keybindings
 bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
-bindsym mod1+space exec rofi -show drun -font "Liberation Mono 12" -icon-theme "Papirus" -show-icons
+bindsym mod1+space exec rofi -show drun -font "Liberation Mono 12" -icon-theme "Papirus" -show-icons -lines 10 -width 30
 bindsym $mod+h split h
 bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
