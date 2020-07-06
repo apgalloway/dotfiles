@@ -13,7 +13,12 @@ set $mod Mod4
 # screen before suspend. Use loginctl lock-session to lock your screen.
 # exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-# startup programs
+#################################
+#				#
+#       STARTUP PROGRAMS	#
+#				#
+#################################
+
 exec --no-startup-id nm-applet
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id xscreensaver -nosplash
@@ -21,10 +26,13 @@ exec_always --no-startup-id $HOME/.config/picom/launch.sh
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id xset -b
 
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
 
-# default keybindings
+#################################
+#				#
+#	  KEYBINDINGS		#	
+#				#
+#################################
+
 bindsym $mod+Return exec --no-startup-id  alacritty
 bindsym $mod+Shift+q kill
 bindsym mod1+space exec rofi -show drun -font "Liberation Mono 12" -icon-theme "Papirus" -show-icons -lines 10 -width 30
@@ -32,6 +40,38 @@ bindsym $mod+h split h
 bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 bindsym $mod+Print exec --no-startup-id flameshot gui
+bindsym $mod+Shift+l exec i3lock -c 000000
+bindsym --whole-window $mod+button2 kill
+
+# alsa mixer volume controls
+bindsym $mod+F12 exec amixer sset Master 5%+          # increase sound volume
+bindsym $mod+F11 exec amixer sset Master 5%-          # decrease sound volume
+bindsym $mod+F10 exec amixer sset Master toggle       # mute sound
+
+# activate screensaver
+bindsym $mod+Shift+Pause exec --no-startup-id xscreensaver-command -activate &
+
+# # Media player controls
+# bindsym XF86AudioPlay exec playerctl play
+# bindsym XF86AudioPause exec playerctl pause
+# bindsym XF86AudioNext exec playerctl next
+# bindsym XF86AudioPrev exec playerctl previous
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# restart polybar
+bindsym $mod+Shift+p exec --no-startup-id $HOME/.config/polybar/launch.sh
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+
+#################################
+#				#
+# WINDOW FOCUS/LAYOUT SETTINGS	#	
+#				#
+#################################
 
 # change focus (arrow keys)
 bindsym $mod+Left focus left
@@ -59,65 +99,26 @@ bindsym $mod+a focus parent
 # focus the parent container
 #bindsym $mod+d focus child
 
-# workspace names
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
 
-# switch to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
+#################################
+#				#
+#  WINDOW DECORATION SETTINGS	#	
+#				#
+#################################
 
-# move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
+for_window [class="^.*"] border pixel 2
 
-# assign applications to specific workspaces and screens
-# primary monitor is called DVI-I-1
-assign [class="discord"] $ws10
-workspace $ws10 output DP-1
+# title_align center
 
-assign [class="Gimp"] $ws9
+# hide_edge_borders both
 
-bindsym $mod+Prior workspace next  
-bindsym $mod+Next workspace prev
-bindsym $mod+Shift+Prior move container to workspace next
-bindsym $mod+Shift+Next move container to workspace prev
-
-bindsym $mod+Tab workspace next 
-
-
-# reload the configuration file
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-# restart polybar
-bindsym $mod+Shift+p exec --no-startup-id $HOME/.config/polybar/launch.sh
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+#################################
+#				#
+#    WINDOW RESIZE SETTINGS	#	
+#				#
+#################################
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -146,9 +147,67 @@ bindsym $mod+i resize grow   height 10px or 10 ppt
 bindsym $mod+o resize shrink height 10px or 10 ppt
 bindsym $mod+p resize grow   width  10px or 10 ppt
 
-for_window [class="^.*"] border pixel 2
-# title_align center
-# hide_edge_borders both
+#################################
+#				#
+#     WORKSPACE SETTINGS	#
+#				#
+#################################
+
+# workspace names
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+bindsym $mod+Prior workspace next  
+bindsym $mod+Next workspace prev
+bindsym $mod+Shift+Prior move container to workspace next
+bindsym $mod+Shift+Next move container to workspace prev
+
+bindsym $mod+Tab workspace next
+ 
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# assign applications to specific workspaces and screens
+# primary monitor = DVI-I-1 || secondary monitor = DP-1
+
+assign [class="Gimp"] $ws9
+assign [class="discord"] $ws10
+workspace $ws10 output DP-1
+
+#################################
+#				#
+#	COLOR SETTINGS		#
+#				#
+#################################
 
 set $active-bg                  #3465a4
 set $active-border              #3465a4
@@ -162,31 +221,18 @@ set $inactive-text-color        #555753
 set $urgent-bg                  #ef2929
 set $urgent-border              #ef2929
 
-# window colors
-# 						border				background	       #ext					indicator
-client.focused			$active-border	    $active-bg         $text-color        	#8ae234
-client.unfocused		$inactive-border	$inactive-bg       $inactive-text-color	#4e9a06
-client.focused_inactive	$inactive-border	$inactive-bg       $inactive-text-color	#4e9a06
-client.urgent			$urgent-border   	$urgent-bg         $text-color			#8ae234
+# window colors		border			background	text			indicator
+client.focused		$active-border		$active-bg	$text-color		#8ae234
+client.unfocused	$inactive-border	$inactive-bg	$inactive-text-color	#4e9a06
+client.focused_inactive	$inactive-border	$inactive-bg	$inactive-text-color	#4e9a06
+client.urgent		$urgent-border		$urgent-bg	$text-color		#8ae234
 
-# alsa mixer volume controls
-bindsym $mod+F12 exec amixer sset Master 5%+          # increase sound volume
-bindsym $mod+F11 exec amixer sset Master 5%-          # decrease sound volume
-bindsym $mod+F10 exec amixer sset Master toggle       # mute sound
+#################################
+#				#
+#	GAP SETTINGS		#
+#				#
+#################################
 
-# activate screensaver
-bindsym $mod+Shift+Pause exec --no-startup-id xscreensaver-command -activate &
-
-# # Media player controls
-# bindsym XF86AudioPlay exec playerctl play
-# bindsym XF86AudioPause exec playerctl pause
-# bindsym XF86AudioNext exec playerctl next
-# bindsym XF86AudioPrev exec playerctl previous
-
-bindsym $mod+Shift+l exec i3lock -c 000000
-bindsym --whole-window $mod+button2 kill
-
-# set inner/outer gaps
 gaps inner 10
 gaps outer 5
 
