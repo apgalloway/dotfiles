@@ -22,6 +22,7 @@ set $mod Mod4
 exec --no-startup-id nm-applet
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id xscreensaver -nosplash
+
 exec_always --no-startup-id $HOME/.config/picom/launch.sh
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id xset -b
@@ -33,23 +34,25 @@ exec_always --no-startup-id xset -b
 #				#
 #################################
 
+# terminal
 bindsym $mod+Return exec --no-startup-id  alacritty
-bindsym $mod+Shift+q kill
+
+# rofi
 bindsym mod1+space exec rofi -show drun -font "Liberation Mono 12" -icon-theme "Papirus" -show-icons -lines 10 -width 30
-bindsym $mod+h split h
-bindsym $mod+v split v
-bindsym $mod+f fullscreen toggle
+
+# screenshot
 bindsym $mod+Print exec --no-startup-id flameshot gui
+
+# lock screen
 bindsym $mod+Shift+l exec i3lock -c 000000
-bindsym --whole-window $mod+button2 kill
+
+# screensaver
+bindsym $mod+Shift+Pause exec --no-startup-id xscreensaver-command -activate &
 
 # alsa mixer volume controls
-bindsym $mod+F12 exec amixer sset Master 5%+          # increase sound volume
-bindsym $mod+F11 exec amixer sset Master 5%-          # decrease sound volume
-bindsym $mod+F10 exec amixer sset Master toggle       # mute sound
-
-# activate screensaver
-bindsym $mod+Shift+Pause exec --no-startup-id xscreensaver-command -activate &
+bindsym $mod+F12 exec amixer sset Master 5%+
+bindsym $mod+F11 exec amixer sset Master 5%-
+bindsym $mod+F10 exec amixer sset Master toggle
 
 # # Media player controls
 # bindsym XF86AudioPlay exec playerctl play
@@ -57,12 +60,15 @@ bindsym $mod+Shift+Pause exec --no-startup-id xscreensaver-command -activate &
 # bindsym XF86AudioNext exec playerctl next
 # bindsym XF86AudioPrev exec playerctl previous
 
-# reload the configuration file
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
 # restart polybar
 bindsym $mod+Shift+p exec --no-startup-id $HOME/.config/polybar/launch.sh
+
+# reload i3 configuration file (use for new keybindings)
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
@@ -72,6 +78,16 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 # WINDOW FOCUS/LAYOUT SETTINGS	#	
 #				#
 #################################
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# kill window with middle mouse button
+bindsym --whole-window $mod+button2 kill
+
+bindsym $mod+h split h
+bindsym $mod+v split v
+bindsym $mod+f fullscreen toggle
 
 # change focus (arrow keys)
 bindsym $mod+Left focus left
