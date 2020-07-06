@@ -190,7 +190,6 @@ interval = 600
 format = <label>
 format-underline = ${colors.focused-bg}
 exec = python3 -u ~/weather.py 
-tail = true
 
 [module/demo]
 type = custom/ipc
